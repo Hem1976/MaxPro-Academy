@@ -119,23 +119,7 @@ cp .env.example .env.local
 
 If Ollama is offline, playlist mapping still works (videos are attached even without AI polish).
 
-If Supabase env vars are not set, the app runs in **demo mode**:
-
-- In-memory catalog seeded from Maxpro product portfolio
-- Cookie-based auth (`maxpro_demo_user`)
-- Progress, quizzes, enrollments, and certificates stored in memory
-
-**Demo admin**
-
-- Email: `admin@maxproinfotech.com`
-- Password: any value (demo mode only)
-
-**Demo learner**
-
-1. Open `/signup`
-2. Create an account
-3. Complete onboarding
-4. Browse Rockey Fundamentals and start learning
+If Supabase env vars are not set, the app runs in **demo mode** with an in-memory catalog, cookie-based session, and no external database. Use this only for local evaluation—not for production.
 
 ### 4. Run locally
 
@@ -202,24 +186,21 @@ npm run supabase:migrate
 
 Migrations in `supabase/migrations/` (001–006): schema, RLS, product seed, indexes, `course_kind`, `profiles.phone`.
 
-### 5. Create super admin (or sync full demo catalog + accounts)
+### 5. Create super admin (optional demo seed)
+
+Create an admin user (use your own email and a strong password; never commit secrets):
 
 ```bash
-npm run supabase:bootstrap-admin -- admin@maxproinfotech.com "YourSecurePassword12!"
+npm run supabase:bootstrap-admin -- your-admin@example.com "YourSecurePassword12!"
 ```
 
-**Demo parity** (products, 7 courses, 71 lessons, enrollments, Amina/Karim/Sara progress):
+To load sample products, courses, and progress data for development:
 
 ```bash
 npm run supabase:seed-demo
 ```
 
-Demo passwords after `supabase:seed-demo` (Supabase Auth requires 6+ characters):
-
-- **Admin:** `admin@maxproinfotech.com` / `demo1234` → `/admin/login`
-- **Learners:** `amina.saleh@maxproinfotech.com`, `karim.nasser@maxproinfotech.com`, `sara.haddad@maxproinfotech.com` / `demo1234` → `/login`
-
-Sign in at `/admin/login`. Do not commit real passwords.
+Account credentials for seeded users are defined in your private environment or team runbook—not in this repository.
 
 ### 6. Vercel
 
