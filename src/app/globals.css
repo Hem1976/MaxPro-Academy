@@ -1,0 +1,264 @@
+@import "tailwindcss";
+
+/* ─── Maxpro Academy Design Tokens ─── */
+
+:root {
+  /* Brand */
+  --navy: #0b1f3a;
+  --navy-foreground: #ffffff;
+  --near-black: #0a0a0a;
+  --white: #ffffff;
+  --accent: #1e4a7a;
+  --accent-hover: #2f6fad;
+  --accent-muted: #e8eef4;
+
+  /* Neutrals */
+  --border: #e5e7eb;
+  --border-strong: #d1d5db;
+  --surface: #f8fafc;
+  --surface-raised: #ffffff;
+  --muted: #6b7280;
+  --muted-foreground: #4b5563;
+
+  /* Semantic */
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --primary: #1e4a7a;
+  --primary-foreground: #ffffff;
+  --secondary: #f8fafc;
+  --secondary-foreground: #0b1f3a;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --success: #15803d;
+  --success-foreground: #ffffff;
+  --warning: #b45309;
+  --warning-foreground: #ffffff;
+  --ring: #1e4a7a;
+  --input: #e5e7eb;
+  --input-background: #ffffff;
+
+  /* Radius */
+  --radius-sm: 0.25rem;
+  --radius: 0.375rem;
+  --radius-lg: 0.5rem;
+
+  /* Shadows — restrained */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+}
+
+.dark {
+  --navy: #0b1f3a;
+  --navy-foreground: #f8fafc;
+  --near-black: #0a0a0a;
+  --accent: #2f6fad;
+  --accent-hover: #4a8fd4;
+  --accent-muted: #1a2f4a;
+
+  --border: #1f2937;
+  --border-strong: #374151;
+  --surface: #111827;
+  --surface-raised: #1f2937;
+  --muted: #9ca3af;
+  --muted-foreground: #d1d5db;
+
+  --background: #0a0a0a;
+  --foreground: #f8fafc;
+  --card: #111827;
+  --card-foreground: #f8fafc;
+  --primary: #2f6fad;
+  --primary-foreground: #ffffff;
+  --secondary: #1f2937;
+  --secondary-foreground: #f8fafc;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --success: #22c55e;
+  --success-foreground: #ffffff;
+  --warning: #f59e0b;
+  --warning-foreground: #0a0a0a;
+  --ring: #2f6fad;
+  --input: #374151;
+  --input-background: #111827;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.25), 0 1px 2px -1px rgb(0 0 0 / 0.2);
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-near-black: var(--near-black);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-muted: var(--accent-muted);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius-lg);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+}
+
+/* ─── Base ─── */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* ─── Utility Classes ─── */
+
+.container-max {
+  width: 100%;
+  max-width: 80rem; /* 1280px */
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-max {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-max {
+    padding-inline: 2rem;
+  }
+}
+
+.focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Lesson / prose content */
+.prose-lesson {
+  color: var(--foreground);
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 65ch;
+}
+
+.prose-lesson h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.dark .prose-lesson h2 {
+  color: var(--foreground);
+}
+
+.prose-lesson h3 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-lesson p {
+  margin-bottom: 1rem;
+}
+
+.prose-lesson ul,
+.prose-lesson ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.prose-lesson ul {
+  list-style-type: disc;
+}
+
+.prose-lesson ol {
+  list-style-type: decimal;
+}
+
+.prose-lesson li {
+  margin-bottom: 0.375rem;
+}
+
+.prose-lesson strong {
+  font-weight: 600;
+}
+
+.prose-lesson a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-lesson a:hover {
+  color: var(--accent-hover);
+}
+
+.prose-lesson code {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.875em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.125rem 0.375rem;
+}
+
+.prose-lesson pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.prose-lesson pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.prose-lesson blockquote {
+  border-left: 3px solid var(--border-strong);
+  padding-left: 1rem;
+  color: var(--muted-foreground);
+  margin-bottom: 1rem;
+}

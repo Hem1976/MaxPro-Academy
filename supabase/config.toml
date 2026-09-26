@@ -1,0 +1,12 @@
+# Minimal Supabase project placeholder.
+# Apply SQL files in supabase/migrations/ via the Supabase SQL editor
+# or `supabase db push` after linking a project.
+
+[project]
+id = "maxpro-academy"
+
+[api]
+enabled = true
+
+[db]
+major_version = 15

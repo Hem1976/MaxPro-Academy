@@ -1,0 +1,27 @@
+{
+  "title": "External compliance questionnaire",
+  "description": "Complete all questions to finish this external course.",
+  "passingScore": 80,
+  "questions": [
+    {
+      "question": "What is the first step when starting your assigned external training?",
+      "explanation": "Always read the course instructions before answering.",
+      "options": [
+        { "text": "Read the course instructions and requirements", "isCorrect": true },
+        { "text": "Skip directly to the certificate", "isCorrect": false },
+        { "text": "Share your login with a colleague", "isCorrect": false },
+        { "text": "Ignore the passing score", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "How many correct answers does each question allow?",
+      "explanation": "Each question must have exactly one correct option.",
+      "options": [
+        { "text": "Exactly one", "isCorrect": true },
+        { "text": "At least two", "isCorrect": false },
+        { "text": "None", "isCorrect": false },
+        { "text": "All options can be correct", "isCorrect": false }
+      ]
+    }
+  ]
+}
