@@ -7,6 +7,8 @@ import { CourseCard } from "@/components/course/course-card";
 import { FadeIn } from "@/components/marketing/fade-in";
 import { CourseLevelFilter } from "@/components/marketing/course-level-filter";
 import { getOrderedLessonsForCourse } from "@/lib/data/demo-store";
+import { getCurrentUser } from "@/lib/auth/get-user";
+import { canAccessAdmin } from "@/lib/auth/roles";
 import { getPublishedCourses } from "@/lib/data/queries";
 import { formatMinutes } from "@/lib/utils";
 import type { CourseLevel } from "@/types/database";
@@ -43,8 +45,12 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
     ? courses.filter((course) => course.id !== featuredCourse.id)
     : courses;
 
+  const user = await getCurrentUser();
+  const containerSize =
+    user && !canAccessAdmin(user.profile.role) ? "learner" : "default";
+
   return (
-    <Container className="py-12 lg:py-16">
+    <Container size={containerSize} className="py-12 lg:py-16">
       <FadeIn>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <header className="max-w-2xl">

@@ -17,8 +17,8 @@ export default async function OnboardingLayout({
   return (
     <div className="flex min-h-full flex-col bg-surface">
       <SiteHeader user={user.profile} />
-      <main className="flex-1">{children}</main>
-      <SiteFooter />
+      <main className="flex flex-1 flex-col">{children}</main>
+      <SiteFooter size="learner" />
     </div>
   );
 }

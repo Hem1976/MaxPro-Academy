@@ -22,6 +22,8 @@ function demoSessionToProfile(session: DemoUserSession): Profile {
     company: session.company ?? null,
     job_title: session.job_title ?? null,
     phone: session.phone ?? null,
+    timezone: session.timezone ?? null,
+    locale: session.locale ?? null,
     learning_role: session.learning_role ?? null,
     preferred_product_ids: session.preferred_product_ids ?? null,
     onboarding_completed: session.onboarding_completed,

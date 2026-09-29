@@ -52,6 +52,8 @@ export const profileUpdateSchema = z.object({
   company: z.string().trim().max(120).optional().nullable(),
   jobTitle: z.string().trim().max(120).optional().nullable(),
   avatarUrl: z.string().url("Enter a valid URL").optional().nullable(),
+  timezone: z.string().trim().min(1).max(80).optional().nullable(),
+  locale: z.string().trim().min(2).max(20).optional().nullable(),
   learningRole: z
     .enum([
       "sales_representative",

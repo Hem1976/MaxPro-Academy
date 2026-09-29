@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
+import { LearnerPage, LearnerPageContent } from "@/components/layout/learner-page";
 import { CompletionScreen } from "@/components/lesson/completion-screen";
 import { getCurrentUser } from "@/lib/auth/get-user";
 import {
@@ -60,15 +61,20 @@ export default async function CourseCompletePage({ params }: CompletePageProps) 
 
   return (
     <AppShell>
-      <CompletionScreen
-        courseTitle={course.title}
-        courseSlug={slug}
-        recipientName={recipientName}
-        certificateEnabled={course.certificate_enabled}
-        hasCertificate={
-          Boolean(certificate) || progress.enrollment?.status === "completed"
-        }
-      />
+      <LearnerPage>
+        <LearnerPageContent className="items-center justify-center">
+          <CompletionScreen
+            courseTitle={course.title}
+            courseSlug={slug}
+            recipientName={recipientName}
+            certificateEnabled={course.certificate_enabled}
+            hasCertificate={
+              Boolean(certificate) || progress.enrollment?.status === "completed"
+            }
+            className="max-w-3xl px-0 py-8 sm:py-12"
+          />
+        </LearnerPageContent>
+      </LearnerPage>
     </AppShell>
   );
 }

@@ -3,7 +3,11 @@ import Link from "next/link";
 import { Award } from "lucide-react";
 import { getUserCertificates } from "@/actions/certificates";
 import { AppShell } from "@/components/layout/app-shell";
-import { Container } from "@/components/ui/container";
+import {
+  LearnerPage,
+  LearnerPageContent,
+  LearnerPageHeader,
+} from "@/components/layout/learner-page";
 import { EmptyState } from "@/components/ui/empty-state";
 import { getCourseById } from "@/lib/data/demo-store";
 
@@ -21,65 +25,63 @@ export default async function CertificatesPage() {
 
   return (
     <AppShell>
-      <Container className="py-10">
-        <div className="mb-8">
-          <h1 className="text-2xl font-semibold text-navy dark:text-foreground">
-            My certificates
-          </h1>
-          <p className="mt-2 text-muted-foreground">
-            View and download certificates you have earned.
-          </p>
-        </div>
-
-        {items.length === 0 ? (
-          <EmptyState
-            title="No certificates yet"
-            description="Complete certified courses to earn verifiable certificates."
-            icon={<Award className="size-10" />}
-            action={
-              <Link
-                href="/courses"
-                className="text-sm font-medium text-accent hover:underline"
-              >
-                Browse courses
-              </Link>
-            }
+      <LearnerPage>
+        <LearnerPageContent>
+          <LearnerPageHeader
+            title="My certificates"
+            description="View and download certificates you have earned."
           />
-        ) : (
-          <ul className="grid gap-4 sm:grid-cols-2">
-            {items.map(({ cert, course }) => (
-              <li key={cert.id}>
+
+          {items.length === 0 ? (
+            <EmptyState
+              title="No certificates yet"
+              description="Complete certified courses to earn verifiable certificates."
+              icon={<Award className="size-10" />}
+              action={
                 <Link
-                  href={`/certificates/${cert.id}`}
-                  className="block rounded-lg border border-border bg-card p-6 transition-colors hover:border-border-strong hover:bg-surface focus-ring"
+                  href="/courses"
+                  className="text-sm font-medium text-accent hover:underline"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="flex size-12 items-center justify-center rounded-md bg-navy text-navy-foreground">
-                      <Award className="size-6" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <h2 className="font-semibold text-foreground">
-                        {course?.title ?? "Course certificate"}
-                      </h2>
-                      <p className="mt-1 font-mono text-xs text-muted-foreground">
-                        {cert.certificate_number}
-                      </p>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        Issued{" "}
-                        {new Date(cert.issued_at).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </p>
-                    </div>
-                  </div>
+                  Browse courses
                 </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-      </Container>
+              }
+            />
+          ) : (
+            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {items.map(({ cert, course }) => (
+                <li key={cert.id}>
+                  <Link
+                    href={`/certificates/${cert.id}`}
+                    className="block h-full rounded-lg border border-border bg-card p-5 transition-colors hover:border-border-strong hover:bg-surface focus-ring sm:p-6"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="flex size-11 shrink-0 items-center justify-center rounded-md bg-navy text-navy-foreground">
+                        <Award className="size-5" aria-hidden="true" />
+                      </div>
+                      <div className="min-w-0">
+                        <h2 className="font-semibold text-foreground">
+                          {course?.title ?? "Course certificate"}
+                        </h2>
+                        <p className="mt-1 truncate font-mono text-xs text-muted-foreground">
+                          {cert.certificate_number}
+                        </p>
+                        <p className="mt-2 text-sm text-muted-foreground">
+                          Issued{" "}
+                          {new Date(cert.issued_at).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </LearnerPageContent>
+      </LearnerPage>
     </AppShell>
   );
 }

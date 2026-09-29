@@ -11,11 +11,11 @@ export interface StartLearningCardProps {
 export function StartLearningCard({ courses }: StartLearningCardProps) {
   return (
     <article className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-      <div className="border-b border-border bg-linear-to-r from-navy to-accent px-6 py-6 sm:px-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/70">
+      <div className="border-b border-border bg-linear-to-r from-navy to-accent px-4 py-5 sm:px-6">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/70">
           Start here
         </p>
-        <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">
+        <h2 className="mt-1 text-xl font-semibold tracking-tight text-white sm:text-2xl">
           Begin your learning path
         </h2>
         <p className="mt-1 max-w-xl text-sm text-white/75">
@@ -24,7 +24,7 @@ export function StartLearningCard({ courses }: StartLearningCardProps) {
       </div>
 
       {courses.length > 0 ? (
-        <div className="grid grid-cols-1 gap-3 p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-2.5 p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-3">
           {courses.map((course) => {
             const product = course.product;
 
@@ -32,7 +32,7 @@ export function StartLearningCard({ courses }: StartLearningCardProps) {
               <Link
                 key={course.id}
                 href={`/courses/${course.slug}`}
-                className="group flex items-center gap-3 rounded-lg border border-border bg-surface/60 p-3 transition-colors hover:border-border-strong hover:bg-card focus-ring"
+                className="group flex items-center gap-3 rounded-lg border border-border bg-surface/60 p-2.5 transition-colors hover:border-border-strong hover:bg-card focus-ring"
               >
                 {product ? (
                   <ProductVisual
@@ -40,10 +40,10 @@ export function StartLearningCard({ courses }: StartLearningCardProps) {
                     category={product.category}
                     imageUrl={product.cover_image_url}
                     variant="thumb"
-                    className="size-14 shrink-0 rounded-md"
+                    className="size-12 shrink-0 rounded-md"
                   />
                 ) : (
-                  <div className="flex size-14 shrink-0 items-center justify-center rounded-md bg-accent-muted text-accent">
+                  <div className="flex size-12 shrink-0 items-center justify-center rounded-md bg-accent-muted text-accent">
                     <BookOpen className="size-5" aria-hidden="true" />
                   </div>
                 )}
@@ -62,9 +62,9 @@ export function StartLearningCard({ courses }: StartLearningCardProps) {
           })}
         </div>
       ) : (
-        <div className="p-6">
+        <div className="p-5">
           <Link href="/courses">
-            <Button>Browse courses</Button>
+            <Button size="md">Browse courses</Button>
           </Link>
         </div>
       )}

@@ -20,6 +20,7 @@ import {
 import { CourseSidebar, type SidebarModule, type SidebarQuiz } from "@/components/lesson/course-sidebar";
 import { LessonContent } from "@/components/lesson/lesson-content";
 import { VideoPlayer } from "@/components/lesson/video-player";
+import { learnerShellClassName } from "@/components/layout/learner-page";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 import type { LessonProgress, LessonResource } from "@/types/database";
@@ -123,7 +124,7 @@ export function LessonWorkspace({
       : "Finish course";
 
   return (
-    <div className="container-max py-6 lg:py-8">
+    <div className={learnerShellClassName("py-6 lg:py-8")}>
       <div className="mb-6">
         <Link
           href={`/courses/${courseSlug}`}

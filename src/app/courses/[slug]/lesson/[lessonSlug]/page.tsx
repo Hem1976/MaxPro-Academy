@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
+import { LearnerPage } from "@/components/layout/learner-page";
 import { LessonWorkspace } from "@/components/lesson/lesson-workspace";
 import type { SidebarModule } from "@/components/lesson/course-sidebar";
 import { enrollInCourse } from "@/actions/progress";
@@ -102,6 +103,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
   return (
     <AppShell>
+      <LearnerPage>
       <LessonWorkspace
         courseId={course.id}
         courseSlug={slug}
@@ -130,6 +132,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           previous ? { slug: previous.slug, title: previous.title } : null
         }
       />
+      </LearnerPage>
     </AppShell>
   );
 }

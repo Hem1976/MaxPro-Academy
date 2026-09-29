@@ -13,13 +13,14 @@ import { IconButton } from "@/components/ui/icon-button";
 import { useSearchDialog } from "@/components/shared/search-dialog";
 import { SearchTrigger, SiteSearch } from "@/components/layout/site-search";
 import { canAccessAdmin } from "@/lib/auth/roles";
+import { learnerShellClassName } from "@/components/layout/learner-page";
 import { cn } from "@/lib/utils";
 import type { Profile } from "@/types/database";
-import { useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 
 const AUTH_NAV_LINKS = [
   { href: "/dashboard", label: "Home" },
-  { href: "/dashboard#my-courses", label: "My Learning" },
+  { href: "/my-learning", label: "My Learning" },
   { href: "/products", label: "Solutions" },
   { href: "/courses", label: "Courses" },
 ];
@@ -31,20 +32,14 @@ interface SiteHeaderProps {
 export function SiteHeader({ user = null }: SiteHeaderProps) {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [locationHash, setLocationHash] = useState("");
   const { open: searchOpen, setOpen: setSearchOpen } = useSearchDialog();
-
-  useEffect(() => {
-    const syncHash = () => setLocationHash(window.location.hash);
-    syncHash();
-    window.addEventListener("hashchange", syncHash);
-    return () => window.removeEventListener("hashchange", syncHash);
-  }, [pathname]);
   const [isSigningOut, startSignOut] = useTransition();
   const showAdmin = user ? canAccessAdmin(user.role) : false;
   const displayName =
     user?.full_name?.trim() || user?.email?.split("@")[0] || "";
   const homeHref = showAdmin ? "/admin/dashboard" : user ? "/dashboard" : "/";
+  const headerShellClass =
+    user && !showAdmin ? learnerShellClassName() : "container-max";
 
   const handleSignOut = () => {
     startSignOut(async () => {
@@ -53,13 +48,8 @@ export function SiteHeader({ user = null }: SiteHeaderProps) {
   };
 
   const isNavActive = (href: string) => {
-    if (href === "/dashboard#my-courses") {
-      return (
-        pathname === "/dashboard" && locationHash === "#my-courses"
-      );
-    }
     if (href === "/dashboard") {
-      return pathname === "/dashboard" && locationHash !== "#my-courses";
+      return pathname === "/dashboard";
     }
     return pathname === href || pathname.startsWith(`${href}/`);
   };
@@ -67,7 +57,7 @@ export function SiteHeader({ user = null }: SiteHeaderProps) {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur">
-        <div className="container-max flex h-16 items-center gap-4">
+        <div className={cn(headerShellClass, "flex h-16 items-center gap-4")}>
           <IconButton
             label="Open navigation"
             variant="ghost"

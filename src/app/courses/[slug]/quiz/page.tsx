@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
+import { LearnerPage } from "@/components/layout/learner-page";
 import { QuizWorkspace } from "@/components/lesson/quiz-workspace";
 import type { SidebarModule } from "@/components/lesson/course-sidebar";
 import { enrollInCourse } from "@/actions/progress";
@@ -87,6 +88,7 @@ export default async function CourseQuizPage({ params }: CourseQuizPageProps) {
 
   return (
     <AppShell>
+      <LearnerPage>
       <QuizWorkspace
         courseId={course.id}
         courseSlug={slug}
@@ -106,6 +108,7 @@ export default async function CourseQuizPage({ params }: CourseQuizPageProps) {
         totalCount={progressSummary.totalRequired}
         progressPercent={progressSummary.percent}
       />
+      </LearnerPage>
     </AppShell>
   );
 }

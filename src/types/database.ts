@@ -50,6 +50,8 @@ export interface Profile {
   company: string | null;
   job_title: string | null;
   phone: string | null;
+  timezone: string | null;
+  locale: string | null;
   learning_role: LearningRole | null;
   preferred_product_ids: string[] | null;
   onboarding_completed: boolean;

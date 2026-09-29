@@ -1589,6 +1589,8 @@ export interface DemoUserSession {
   preferred_product_ids?: string[] | null;
   onboarding_completed: boolean;
   avatar_url?: string | null;
+  timezone?: string | null;
+  locale?: string | null;
   created_at?: string;
   updated_at?: string;
 }

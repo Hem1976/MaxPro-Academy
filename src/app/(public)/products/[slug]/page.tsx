@@ -9,6 +9,8 @@ import { ProductVisual } from "@/components/brand/product-visual";
 import { CourseCard } from "@/components/course/course-card";
 import { ProductScreenshotGallery } from "@/components/course/product-screenshot-gallery";
 import { FadeIn } from "@/components/marketing/fade-in";
+import { getCurrentUser } from "@/lib/auth/get-user";
+import { canAccessAdmin } from "@/lib/auth/roles";
 import { getOrderedLessonsForCourse } from "@/lib/data/demo-store";
 import { getProductMedia } from "@/lib/data/product-media";
 import {
@@ -62,8 +64,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
       ? product.description
       : null;
 
+  const user = await getCurrentUser();
+  const containerSize =
+    user && !canAccessAdmin(user.profile.role) ? "learner" : "default";
+
   return (
-    <Container className="py-12 lg:py-16">
+    <Container size={containerSize} className="py-12 lg:py-16">
       <Breadcrumb
         items={[
           { label: "Solutions", href: "/products" },

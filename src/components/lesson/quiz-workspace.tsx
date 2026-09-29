@@ -16,6 +16,7 @@ import {
   type SidebarQuiz,
 } from "@/components/lesson/course-sidebar";
 import { QuizPanel, type QuizPanelQuestion } from "@/components/lesson/quiz-panel";
+import { learnerShellClassName } from "@/components/layout/learner-page";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 
@@ -73,7 +74,7 @@ export function QuizWorkspace({
   };
 
   return (
-    <div className="container-max py-6 lg:py-8">
+    <div className={learnerShellClassName("py-6 lg:py-8")}>
       <div className="mb-6">
         <Link
           href={`/courses/${courseSlug}`}

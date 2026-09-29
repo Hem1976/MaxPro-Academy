@@ -41,10 +41,25 @@ export function Avatar({
   const initials = getInitials(name || alt || "?");
 
   if (src) {
+    const altText = alt || name || "Avatar";
+    if (src.startsWith("data:")) {
+      return (
+        <img
+          src={src}
+          alt={altText}
+          className={cn(
+            "rounded-md object-cover",
+            sizeClasses[size],
+            className,
+          )}
+        />
+      );
+    }
+
     return (
       <Image
         src={src}
-        alt={alt || name || "Avatar"}
+        alt={altText}
         width={imageSizes[size]}
         height={imageSizes[size]}
         className={cn(

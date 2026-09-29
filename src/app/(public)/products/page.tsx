@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { getCurrentUser } from "@/lib/auth/get-user";
+import { canAccessAdmin } from "@/lib/auth/roles";
 import { Container } from "@/components/ui/container";
 import { ProductCard } from "@/components/course/product-card";
 import { FadeIn } from "@/components/marketing/fade-in";
@@ -13,11 +15,14 @@ export const metadata: Metadata = {
     "Browse Maxpro Academy training organized by solution — Rockey, RocketSales, RocketVan, RocketBI, and more.",
 };
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
   const products = getPublishedProducts();
+  const user = await getCurrentUser();
+  const containerSize =
+    user && !canAccessAdmin(user.profile.role) ? "learner" : "default";
 
   return (
-    <Container className="py-12 lg:py-16">
+    <Container size={containerSize} className="py-12 lg:py-16">
       <FadeIn>
         <header className="max-w-2xl">
           <h1 className="text-3xl font-semibold tracking-tight text-navy sm:text-4xl">

@@ -13,6 +13,9 @@ import { createClient } from "@/lib/supabase/server";
 import { profileUpdateSchema } from "@/lib/validations/schemas";
 import type { Profile } from "@/types/database";
 
+const AVATAR_MAX_BYTES = 1024 * 1024;
+const AVATAR_MIME_TYPES = new Set(["image/jpeg", "image/png", "image/gif"]);
+
 async function syncDemoCookie(session: DemoUserSession): Promise<void> {
   const cookieStore = await cookies();
   cookieStore.set(DEMO_USER_COOKIE, JSON.stringify(session), {
@@ -24,23 +27,55 @@ async function syncDemoCookie(session: DemoUserSession): Promise<void> {
   });
 }
 
+async function avatarDataUrlFromForm(
+  formData: FormData,
+): Promise<string | null | undefined> {
+  const file = formData.get("avatar");
+  if (!(file instanceof File) || file.size === 0) {
+    return undefined;
+  }
+
+  if (!AVATAR_MIME_TYPES.has(file.type)) {
+    return null;
+  }
+  if (file.size > AVATAR_MAX_BYTES) {
+    return null;
+  }
+
+  const buffer = Buffer.from(await file.arrayBuffer());
+  return `data:${file.type};base64,${buffer.toString("base64")}`;
+}
+
 export async function updateProfile(
   formData: FormData,
 ): Promise<ActionResult<Profile>> {
   const user = await requireCurrentUser();
+
+  const avatarFromFile = await avatarDataUrlFromForm(formData);
+  if (avatarFromFile === null) {
+    return actionError(
+      "Profile photo must be 1MB or smaller and use JPG, GIF, or PNG.",
+    );
+  }
 
   const parsed = profileUpdateSchema.safeParse({
     fullName: formData.get("fullName") || undefined,
     company: formData.get("company") || null,
     jobTitle: formData.get("jobTitle") || null,
     learningRole: formData.get("learningRole") || null,
+    timezone: formData.get("timezone") || null,
+    locale: formData.get("locale") || null,
   });
 
   if (!parsed.success) {
     return actionError(parsed.error.issues[0]?.message ?? "Invalid profile data");
   }
 
-  const { fullName, company, jobTitle, learningRole } = parsed.data;
+  const { fullName, company, jobTitle, learningRole, timezone, locale } =
+    parsed.data;
+
+  const avatarUrl =
+    avatarFromFile !== undefined ? avatarFromFile : user.profile.avatar_url;
 
   if (!isSupabaseConfigured()) {
     const updated = updateDemoUser(user.id, {
@@ -48,6 +83,9 @@ export async function updateProfile(
       company: company ?? null,
       job_title: jobTitle ?? null,
       learning_role: learningRole ?? null,
+      timezone: timezone ?? null,
+      locale: locale ?? null,
+      avatar_url: avatarUrl,
     });
 
     if (!updated) {
@@ -62,6 +100,9 @@ export async function updateProfile(
       company: updated.company ?? null,
       job_title: updated.job_title ?? null,
       learning_role: updated.learning_role ?? null,
+      timezone: updated.timezone ?? null,
+      locale: updated.locale ?? null,
+      avatar_url: updated.avatar_url ?? null,
       updated_at: updated.updated_at ?? new Date().toISOString(),
     });
   }
@@ -74,6 +115,9 @@ export async function updateProfile(
       company,
       job_title: jobTitle,
       learning_role: learningRole,
+      timezone,
+      locale,
+      avatar_url: avatarUrl,
       updated_at: new Date().toISOString(),
     })
     .eq("id", user.id)

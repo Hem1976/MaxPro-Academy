@@ -20,10 +20,14 @@ const FOOTER_LINKS: FooterLink[] = [
   },
 ];
 
-export function SiteFooter() {
+export function SiteFooter({
+  size = "default",
+}: {
+  size?: "default" | "learner";
+}) {
   return (
     <footer className="mt-auto border-t border-border bg-card">
-      <Container className="py-8">
+      <Container size={size} className="py-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-sm">
             <Logo variant="academy" href="/" className="max-h-10" />

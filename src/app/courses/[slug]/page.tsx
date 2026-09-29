@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Award, CheckCircle2, Clock } from "lucide-react";
 import { CourseThumbnail } from "@/components/brand/course-thumbnail";
 import { AppShell } from "@/components/layout/app-shell";
+import { LearnerPage } from "@/components/layout/learner-page";
 import { MarketingShell } from "@/components/layout/marketing-shell";
 import { Container } from "@/components/ui/container";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -155,7 +156,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
   const quizPassed = user ? hasPassedCourseQuiz(user.id, course.id) : false;
 
   const page = (
-    <Container className="py-8 lg:py-12">
+    <Container size="learner" className="py-8 lg:py-12">
       <Breadcrumb
         items={[
           { label: "Courses", href: "/courses" },
@@ -370,7 +371,11 @@ export default async function CoursePage({ params }: CoursePageProps) {
   );
 
   if (user && !canAccessAdmin(user.profile.role)) {
-    return <AppShell>{page}</AppShell>;
+    return (
+      <AppShell>
+        <LearnerPage>{page}</LearnerPage>
+      </AppShell>
+    );
   }
 
   return <MarketingShell>{page}</MarketingShell>;

@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { DashboardHashRedirect } from "@/app/dashboard/my-courses-redirect";
 import { AppShell } from "@/components/layout/app-shell";
 import { LearnerDashboard } from "@/components/dashboard/learner-dashboard";
 import { getLearnerDashboardPageContext } from "@/lib/dashboard/learner-dashboard-page";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Maxpro Academy",
-  description: "Your personalized Maxpro Academy learning dashboard.",
+  title: "My Learning | Maxpro Academy",
+  description: "Your enrolled courses and learning progress on Maxpro Academy.",
 };
 
-export default async function DashboardPage() {
+export default async function MyLearningPage() {
   const context = await getLearnerDashboardPageContext();
 
   if (!context) {
@@ -18,9 +17,8 @@ export default async function DashboardPage() {
 
   return (
     <AppShell>
-      <DashboardHashRedirect />
       <LearnerDashboard
-        view="home"
+        view="learning"
         greeting={context.greeting}
         greetingName={context.greetingName}
         data={context.data}

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Mail, MessageCircle } from "lucide-react";
+import { getCurrentUser } from "@/lib/auth/get-user";
+import { canAccessAdmin } from "@/lib/auth/roles";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/marketing/fade-in";
@@ -35,9 +37,13 @@ const FAQ = [
   },
 ] as const;
 
-export default function HelpPage() {
+export default async function HelpPage() {
+  const user = await getCurrentUser();
+  const containerSize =
+    user && !canAccessAdmin(user.profile.role) ? "learner" : "default";
+
   return (
-    <Container className="py-12 lg:py-16">
+    <Container size={containerSize} className="py-12 lg:py-16">
       <FadeIn>
         <header className="max-w-2xl">
           <h1 className="text-3xl font-semibold tracking-tight text-navy sm:text-4xl">

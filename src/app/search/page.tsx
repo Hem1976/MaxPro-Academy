@@ -5,7 +5,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { searchAcademy } from "@/actions/search";
-import { Container } from "@/components/ui/container";
+import {
+  LearnerPage,
+  LearnerPageContent,
+  LearnerPageHeader,
+} from "@/components/layout/learner-page";
 import { Input } from "@/components/ui/input";
 import { useSearchDialog } from "@/components/shared/search-dialog";
 
@@ -78,16 +82,15 @@ export default function SearchPage() {
   }, [query, router]);
 
   return (
-    <Container className="py-10">
-      <div className="mx-auto max-w-2xl">
-        <h1 className="text-2xl font-semibold text-navy dark:text-foreground">
-          Search
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Find solutions, courses, and lessons across Maxpro Academy.
-        </p>
+    <LearnerPage>
+      <LearnerPageContent>
+        <LearnerPageHeader
+          title="Search"
+          description="Find solutions, courses, and lessons across Maxpro Academy."
+        />
 
-        <div className="relative mt-6">
+        <div className="mx-auto w-full max-w-3xl">
+        <div className="relative">
           <Search
             className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted"
             aria-hidden="true"
@@ -154,7 +157,8 @@ export default function SearchPage() {
             </ul>
           )}
         </div>
-      </div>
-    </Container>
+        </div>
+      </LearnerPageContent>
+    </LearnerPage>
   );
 }

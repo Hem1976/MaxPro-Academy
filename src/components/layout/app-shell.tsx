@@ -22,8 +22,8 @@ export async function AppShell({ children }: AppShellProps) {
   return (
     <div className="flex min-h-full flex-col">
       <SiteHeader user={user.profile} />
-      <main className="flex-1">{children}</main>
-      <SiteFooter />
+      <main className="flex flex-1 flex-col">{children}</main>
+      <SiteFooter size="learner" />
     </div>
   );
 }

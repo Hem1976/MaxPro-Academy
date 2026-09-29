@@ -4,7 +4,10 @@ import { notFound, redirect } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
 import { CertificateView } from "@/components/certificates/certificate-view";
 import { DownloadCertificateButton } from "@/components/certificates/download-certificate-button";
-import { Container } from "@/components/ui/container";
+import {
+  LearnerPage,
+  LearnerPageContent,
+} from "@/components/layout/learner-page";
 import { getCurrentUser } from "@/lib/auth/get-user";
 import { resolveCertificateById } from "@/lib/certificates/resolve";
 import {
@@ -52,7 +55,8 @@ export default async function CertificateDetailPage({
 
   return (
     <AppShell>
-      <Container className="max-w-[1100px] py-10">
+      <LearnerPage>
+        <LearnerPageContent>
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
             <Link
@@ -79,7 +83,8 @@ export default async function CertificateDetailPage({
           certificateNumber={resolved.certificate.certificate_number}
           verificationToken={resolved.certificate.verification_token}
         />
-      </Container>
+        </LearnerPageContent>
+      </LearnerPage>
     </AppShell>
   );
 }
