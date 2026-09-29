@@ -50,7 +50,7 @@ function EnrolledCourseTile({ item }: { item: DashboardCourseItem }) {
   return (
     <Link
       href={`/courses/${course.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md focus-ring"
+      className="group flex h-full min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md focus-ring"
     >
       <div className="relative">
         <ProductVisual
@@ -60,7 +60,7 @@ function EnrolledCourseTile({ item }: { item: DashboardCourseItem }) {
           variant="card"
           className="rounded-none border-0"
         />
-        <div className="absolute left-3 top-3">
+        <div className="absolute left-3 top-3 z-10 max-w-[calc(100%-4.5rem)]">
           <Badge
             variant={
               status === "completed"
@@ -77,20 +77,20 @@ function EnrolledCourseTile({ item }: { item: DashboardCourseItem }) {
                 : "Not started"}
           </Badge>
         </div>
-        <div className="absolute bottom-3 right-3 rounded-full bg-card/95 p-1 shadow-sm">
+        <div className="absolute bottom-2 right-2 z-10 rounded-full bg-card/95 p-1 shadow-sm sm:bottom-3 sm:right-3">
           <ProgressRing
             value={progress}
-            size={56}
-            strokeWidth={5}
-            textClassName="text-[11px]"
+            size={48}
+            strokeWidth={4}
+            textClassName="text-[10px] sm:text-[11px]"
             label={`${course.title} progress`}
           />
         </div>
       </div>
 
       <div className="flex flex-1 flex-col p-4">
-        <p className="text-xs font-medium text-muted">{productName}</p>
-        <h3 className="mt-1 text-base font-semibold text-foreground group-hover:text-accent">
+        <p className="text-xs font-medium text-muted-foreground">{productName}</p>
+        <h3 className="mt-1 line-clamp-2 text-base font-semibold text-foreground group-hover:text-accent">
           {course.title}
         </h3>
         {course.short_description && (
@@ -170,7 +170,7 @@ export function LearnerDashboard({
   return (
     <div className="min-h-full bg-surface">
       <div className="container-max py-6 sm:py-8 lg:py-10">
-        <section className="relative overflow-hidden rounded-2xl bg-navy px-5 py-7 text-navy-foreground sm:px-8 sm:py-9">
+        <section className="relative overflow-hidden rounded-2xl bg-navy px-4 py-7 text-navy-foreground sm:px-8 sm:py-9">
           <div
             className="pointer-events-none absolute -right-16 -top-20 size-64 rounded-full bg-accent/40 blur-3xl"
             aria-hidden="true"
@@ -195,17 +195,17 @@ export function LearnerDashboard({
               </p>
             </div>
 
-            <dl className="grid grid-cols-2 gap-2 sm:gap-3">
+            <dl className="grid w-full min-w-0 grid-cols-2 gap-1.5 sm:gap-3">
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-xl border border-white/10 bg-white/10 px-3 py-3 backdrop-blur-sm sm:px-4"
+                  className="rounded-xl border border-white/10 bg-white/10 px-2.5 py-2.5 backdrop-blur-sm sm:px-4 sm:py-3"
                 >
-                  <dt className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-white/65">
-                    <stat.icon className="size-3.5" aria-hidden="true" />
-                    {stat.label}
+                  <dt className="flex min-w-0 items-center gap-1 text-[10px] font-medium uppercase leading-tight text-white/65 sm:gap-1.5 sm:text-[11px] sm:tracking-wider">
+                    <stat.icon className="size-3 shrink-0 sm:size-3.5" aria-hidden="true" />
+                    <span className="min-w-0 break-words">{stat.label}</span>
                   </dt>
-                  <dd className="mt-1 text-2xl font-semibold tabular-nums tracking-tight">
+                  <dd className="mt-1 text-xl font-semibold tabular-nums tracking-tight sm:text-2xl">
                     {stat.value}
                   </dd>
                 </div>
@@ -250,7 +250,7 @@ export function LearnerDashboard({
             }
           />
           {data.myCourses.length > 0 ? (
-            <div className="mt-5 grid gap-5 sm:grid-cols-2">
+            <div className="mt-5 grid grid-cols-1 items-start gap-5 sm:grid-cols-2 [&>*]:min-w-0">
               {data.myCourses.map((item) => (
                 <EnrolledCourseTile key={item.course.id} item={item} />
               ))}
@@ -273,11 +273,11 @@ export function LearnerDashboard({
           )}
         </section>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.9fr)]">
+        <div className="mt-10 space-y-10">
           {exploreProducts.length > 0 && (
-            <section>
+            <section aria-label="Explore solutions">
               <SectionHeading
-                title="Explore products"
+                title="Explore solutions"
                 description="Train on the Maxpro tools your team uses in the field."
                 action={
                   <Link
@@ -288,26 +288,28 @@ export function LearnerDashboard({
                   </Link>
                 }
               />
-              <div className="mt-5 flex gap-3 overflow-x-auto pb-1">
+              <div
+                className="mt-5 -mx-4 flex flex-nowrap gap-2 overflow-x-auto overscroll-x-contain px-4 pb-1 sm:-mx-6 sm:gap-2.5 sm:px-6 lg:mx-0 lg:gap-3 lg:overflow-x-visible lg:px-0"
+              >
                 {exploreProducts.map((product) => (
                   <Link
                     key={product.id}
                     href={`/products/${product.slug}`}
-                    className="group w-44 shrink-0 overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md focus-ring sm:w-48"
+                    className="group w-[6.75rem] min-w-0 shrink-0 overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow hover:shadow-md focus-ring sm:w-[7.25rem] lg:flex-1 lg:max-w-[9.5rem]"
                   >
                     <ProductVisual
                       name={product.name}
                       category={product.category}
                       imageUrl={product.cover_image_url}
                       variant="thumb"
-                      className="rounded-none border-0"
+                      className="aspect-[4/3] rounded-none border-0"
                     />
-                    <div className="p-3">
-                      <p className="truncate text-sm font-semibold text-foreground group-hover:text-accent">
+                    <div className="px-2 py-1.5">
+                      <p className="truncate text-[11px] font-semibold leading-tight text-foreground group-hover:text-accent sm:text-xs">
                         {product.name}
                       </p>
                       {product.category && (
-                        <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                        <p className="mt-0.5 truncate text-[10px] leading-tight text-muted-foreground">
                           {product.category}
                         </p>
                       )}
@@ -318,27 +320,36 @@ export function LearnerDashboard({
             </section>
           )}
 
-          <section className="rounded-xl border border-border bg-card p-5 shadow-sm sm:p-6">
-            <div className="flex items-start gap-3">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-navy text-navy-foreground">
-                <Award className="size-5" aria-hidden="true" />
+          <section className="h-fit rounded-xl border border-border bg-card p-5 shadow-sm sm:p-6">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+              <div className="flex min-w-0 items-start gap-3">
+                <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-navy text-navy-foreground">
+                  <Award className="size-5" aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <h2 className="text-lg font-semibold tracking-tight text-foreground">
+                    {data.certificateCount > 0
+                      ? `${data.certificateCount} ${data.certificateCount === 1 ? "certificate" : "certificates"} earned`
+                      : "Earn your first certificate"}
+                  </h2>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {latestCertificate
+                      ? `${latestCertificateCourse?.title ?? "Certificate"} · ${formatIssuedOn(latestCertificate.issued_at)}`
+                      : "Complete a certified course and pass the knowledge check to unlock a verifiable Maxpro Academy certificate."}
+                  </p>
+                </div>
               </div>
-              <div className="min-w-0">
-                <h2 className="text-lg font-semibold tracking-tight text-foreground">
-                  {data.certificateCount > 0
-                    ? `${data.certificateCount} ${data.certificateCount === 1 ? "certificate" : "certificates"} earned`
-                    : "Earn your first certificate"}
-                </h2>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {latestCertificate
-                    ? `${latestCertificateCourse?.title ?? "Certificate"} · ${formatIssuedOn(latestCertificate.issued_at)}`
-                    : "Complete a certified course and pass the knowledge check to unlock a verifiable Maxpro Academy certificate."}
-                </p>
-              </div>
+
+              <Link href="/certificates" className="shrink-0 sm:pt-1">
+                <Button variant="outline" size="sm" className="w-full sm:w-auto">
+                  {data.certificateCount > 0 ? "View certificates" : "How certificates work"}
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </Button>
+              </Link>
             </div>
 
             {data.recentlyCompleted.length > 0 && (
-              <ul className="mt-5 space-y-2">
+              <ul className="mt-5 grid gap-2 sm:grid-cols-2">
                 {data.recentlyCompleted.map((item) => (
                   <li key={item.course.id}>
                     <Link
@@ -360,13 +371,6 @@ export function LearnerDashboard({
                 ))}
               </ul>
             )}
-
-            <Link href="/certificates" className="mt-5 inline-flex">
-              <Button variant="outline" size="sm">
-                {data.certificateCount > 0 ? "View certificates" : "How certificates work"}
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </Button>
-            </Link>
           </section>
         </div>
 
@@ -374,9 +378,9 @@ export function LearnerDashboard({
           <section className="mt-10 pb-4">
             <SectionHeading
               title="Recommended for you"
-              description="Based on your preferred products and learning role."
+              description="Based on your preferred solutions and learning role."
             />
-            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-5 grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {data.recommendedCourses.map((course) => (
                 <CourseCard
                   key={course.id}

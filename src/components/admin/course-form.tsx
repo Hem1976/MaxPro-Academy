@@ -34,16 +34,18 @@ export function CourseForm({ course, products }: CourseFormProps) {
         return;
       }
 
-      window.location.href = `/admin/courses/${result.data.id}`;
+      const hash =
+        !course && formData.get("courseKind") !== "external" ? "#videos" : "";
+      window.location.href = `/admin/courses/${result.data.id}${hash}`;
     });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl space-y-5">
+    <form onSubmit={handleSubmit} className="w-full space-y-5">
       <CourseTypeFields course={course} />
 
       <div className="space-y-2">
-        <Label htmlFor="productId">Product</Label>
+        <Label htmlFor="productId">Solution</Label>
         <Select
           id="productId"
           name="productId"
@@ -149,7 +151,11 @@ export function CourseForm({ course, products }: CourseFormProps) {
       {error && <p className="text-sm text-destructive">{error}</p>}
 
       <Button type="submit" disabled={isPending}>
-        {isPending ? "Saving..." : course ? "Update course" : "Create course"}
+        {isPending
+          ? "Saving..."
+          : course
+            ? "Save course details"
+            : "Create course & continue"}
       </Button>
     </form>
   );

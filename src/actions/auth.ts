@@ -1,5 +1,6 @@
 "use server";
 
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { clearLearnerSession } from "@/lib/auth/clear-learner-session";
@@ -38,6 +39,20 @@ import type { OnboardingInput } from "@/lib/validations/schemas";
 import type { UserRole } from "@/types/database";
 
 const DEMO_COOKIE_MAX_AGE = 60 * 60 * 24 * 30;
+
+function formatAuthServiceError(message: string): string {
+  if (message === "fetch failed") {
+    return "Could not reach the authentication service. Check your internet connection and try again.";
+  }
+  return message;
+}
+
+function authServiceFailure(error: unknown): ActionResult<never> {
+  if (error instanceof Error) {
+    return actionError(formatAuthServiceError(error.message));
+  }
+  return actionError("Unable to sign in");
+}
 
 async function setDemoUserCookie(
   session: ReturnType<typeof setDemoUser>,
@@ -166,39 +181,54 @@ async function signInToPortal(
     redirect(home);
   }
 
-  const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  try {
+    const supabase = await createClient();
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-  if (error) {
-    return actionError(error.message);
+    if (error) {
+      return actionError(formatAuthServiceError(error.message));
+    }
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return actionError("Unable to sign in");
+    }
+
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("role, onboarding_completed")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (profileError) {
+      await supabase.auth.signOut();
+      return actionError(formatAuthServiceError(profileError.message));
+    }
+
+    const role = (profile?.role as UserRole | undefined) ?? "customer";
+
+    if (!canUsePortal(role, portal)) {
+      await supabase.auth.signOut();
+      return actionError(portalMismatchMessage(portal));
+    }
+
+    if (portal === "learner" && !profile?.onboarding_completed) {
+      redirect("/onboarding");
+    }
+
+    redirect(destination);
+  } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    return authServiceFailure(error);
   }
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return actionError("Unable to sign in");
-  }
-
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role, onboarding_completed")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  const role = (profile?.role as UserRole | undefined) ?? "customer";
-
-  if (!canUsePortal(role, portal)) {
-    await supabase.auth.signOut();
-    return actionError(portalMismatchMessage(portal));
-  }
-
-  if (portal === "learner" && !profile?.onboarding_completed) {
-    redirect("/onboarding");
-  }
-
-  redirect(destination);
 }
 
 export async function signOut(portal?: AuthPortal): Promise<void> {

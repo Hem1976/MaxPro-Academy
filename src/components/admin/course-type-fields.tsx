@@ -29,8 +29,8 @@ export function CourseTypeFields({ course }: CourseTypeFieldsProps) {
       </Select>
       <p className="text-xs text-muted-foreground">
         {kind === "internal"
-          ? "Build content with modules, video uploads, and AI or manual quizzes."
-          : "Learners complete an uploaded questionnaire. Use Content → Questionnaire after saving."}
+          ? "After saving, upload videos and add a quiz in step 2 on the same page."
+          : "After saving, upload the questionnaire in step 2 on the same page."}
       </p>
     </div>
   );

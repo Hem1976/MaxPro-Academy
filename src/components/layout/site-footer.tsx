@@ -9,7 +9,7 @@ type FooterLink = {
 };
 
 const FOOTER_LINKS: FooterLink[] = [
-  { href: "/products", label: "Products" },
+  { href: "/products", label: "Solutions" },
   { href: "/courses", label: "Courses" },
   { href: "/certificates", label: "Certificates" },
   { href: "/help", label: "Help" },

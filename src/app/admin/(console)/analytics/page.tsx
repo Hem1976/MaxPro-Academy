@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AdminPageHeader, AdminSectionHeader } from "@/components/admin/admin-page-header";
 import { LearnerAnalyticsTable } from "@/components/admin/learner-analytics-table";
 import { MetricsChart } from "@/components/admin/metrics-chart";
 import { StatCard } from "@/components/ui/stat-card";
@@ -16,38 +17,47 @@ export default function AdminAnalyticsPage() {
   const learners = getLearnerAnalyticsSummaries();
 
   return (
-    <div>
-      <h1 className="mb-6 text-2xl font-semibold text-navy">Analytics</h1>
+    <div className="w-full">
+      <AdminPageHeader
+        title="Stats"
+        description="Who joined, who finished, and quiz scores."
+      />
 
-      <div className="mb-8 grid gap-4 sm:grid-cols-2">
-        <StatCard label="Total enrollments" value={analytics.totalEnrollments} />
-        <StatCard label="Total completions" value={analytics.totalCompletions} />
+      <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <StatCard
+          label="Sign-ups"
+          value={analytics.totalEnrollments}
+          className="h-full"
+        />
+        <StatCard
+          label="Finished"
+          value={analytics.totalCompletions}
+          className="h-full"
+        />
       </div>
 
       <section className="mb-8">
-        <h2 className="mb-4 text-sm font-semibold text-foreground">
-          By learner
-        </h2>
+        <AdminSectionHeader title="Learners" />
         <LearnerAnalyticsTable learners={learners} />
       </section>
 
       <div className="grid gap-6 lg:grid-cols-2">
         <MetricsChart
-          title="Enrollments by course"
+          title="Sign-ups per course"
           items={analytics.enrollmentStats.map((item) => ({
             label: item.courseTitle,
             value: item.enrollments,
           }))}
-          emptyMessage="No enrollment data yet."
+          emptyMessage="No sign-ups yet."
         />
         <MetricsChart
-          title="Completion rate (%)"
+          title="Finish rate (%)"
           items={analytics.enrollmentStats.map((item) => ({
             label: item.courseTitle,
             value: item.completionRate,
             max: 100,
           }))}
-          emptyMessage="No completion data yet."
+          emptyMessage="No finish data yet."
         />
         <MetricsChart
           title="Quiz pass rate (%)"

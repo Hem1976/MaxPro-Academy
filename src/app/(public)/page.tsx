@@ -24,11 +24,11 @@ import {
 export const metadata: Metadata = {
   title: "Learn. Practice. Master.",
   description:
-    "Maxpro Academy — product training for Rockey, RocketSales Pharma, Rockey Agro, and more. Real screenshots, written guides, knowledge checks, and certificates.",
+    "Maxpro Academy — solution training for Rockey, RocketSales Pharma, Rockey Agro, and more. Real screenshots, written guides, knowledge checks, and certificates.",
   openGraph: {
     title: "Maxpro Academy — Learn. Practice. Master.",
     description:
-      "Structured training for Maxpro software products used by field sales and agronomy teams.",
+      "Structured training for Maxpro software solutions used by field sales and agronomy teams.",
   },
 };
 
@@ -112,14 +112,14 @@ export default function HomePage() {
                 Maxpro Academy
               </h1>
               <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
-                Learn how to use Maxpro products through real screenshots,
+                Learn how to use Maxpro solutions through real screenshots,
                 written walkthroughs, and knowledge checks — then earn a
                 certificate.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link href="/products">
                   <Button variant="primary" size="lg">
-                    Explore products
+                    Explore solutions
                   </Button>
                 </Link>
                 <Link href="/login">
@@ -142,10 +142,10 @@ export default function HomePage() {
               <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <h2 className="text-2xl font-semibold tracking-tight text-navy">
-                    Maxpro products
+                    Maxpro solutions
                   </h2>
                   <p className="mt-2 max-w-xl text-muted-foreground">
-                    One Fundamentals course per product — focused on the
+                    One Fundamentals course per solution — focused on the
                     workflows new customers need first.
                   </p>
                 </div>
@@ -153,7 +153,7 @@ export default function HomePage() {
                   href="/products"
                   className="text-sm font-medium text-accent hover:text-accent-hover"
                 >
-                  View all products
+                  View all solutions
                 </Link>
               </div>
             </FadeIn>
@@ -285,7 +285,7 @@ export default function HomePage() {
               Ready to begin?
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-white/70">
-              Explore your Maxpro product, start the Fundamentals course, and
+              Explore your Maxpro solution, start the Fundamentals course, and
               earn a certificate.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
@@ -295,7 +295,7 @@ export default function HomePage() {
                   size="lg"
                   className="bg-white text-navy hover:bg-white/90"
                 >
-                  Explore products
+                  Explore solutions
                 </Button>
               </Link>
               <Link href="/login">

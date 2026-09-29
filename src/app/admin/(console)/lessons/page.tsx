@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { DataTable } from "@/components/ui/data-table";
 import { Badge } from "@/components/ui/badge";
 import { getAllLessons, getCourseForModuleId } from "@/lib/data/demo-store";
@@ -12,8 +13,11 @@ export default function AdminLessonsPage() {
   const lessons = getAllLessons();
 
   return (
-    <div>
-      <h1 className="mb-6 text-2xl font-semibold text-navy">Lessons</h1>
+    <div className="w-full">
+      <AdminPageHeader
+        title="Lessons"
+        description="All lessons. Edit from a course when you can."
+      />
 
       <DataTable
         data={lessons}

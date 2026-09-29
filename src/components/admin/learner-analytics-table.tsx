@@ -36,7 +36,7 @@ export function LearnerAnalyticsTable({ learners }: LearnerAnalyticsTableProps) 
         <Input
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search learners by name or email..."
+          placeholder="Search name or email…"
           aria-label="Search learners"
         />
       </div>

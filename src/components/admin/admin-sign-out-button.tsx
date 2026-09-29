@@ -12,7 +12,7 @@ export function AdminSignOutButton() {
     <Button
       type="button"
       variant="outline"
-      size="sm"
+      size="md"
       className="ml-auto"
       disabled={pending}
       onClick={() => {

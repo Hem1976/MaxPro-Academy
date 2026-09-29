@@ -18,7 +18,7 @@ export function PublishCourseButton({
 
   const handlePublish = () => {
     const confirmed = window.confirm(
-      "Publish this course? Learners will be able to enroll once published.",
+      "Publish this course? Learners will see it on the site.",
     );
     if (!confirmed) return;
 
@@ -34,18 +34,18 @@ export function PublishCourseButton({
 
   if (isPublished) {
     return (
-      <p className="text-sm text-success">This course is published.</p>
+      <p className="text-sm text-success">Published.</p>
     );
   }
 
   return (
     <div>
-      <Button onClick={handlePublish} disabled={isPending}>
+      <Button size="md" onClick={handlePublish} disabled={isPending}>
         {isPending ? "Publishing..." : "Publish course"}
       </Button>
       {error && <p className="mt-2 text-sm text-destructive">{error}</p>}
       <p className="mt-2 text-xs text-muted-foreground">
-        Publishing makes the course visible to learners. Ensure lessons are ready.
+        Learners can find this course after you publish.
       </p>
     </div>
   );

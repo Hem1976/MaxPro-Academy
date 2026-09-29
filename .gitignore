@@ -20,6 +20,9 @@
 # production
 /build
 
+# local admin secrets (transcription API keys)
+.data/
+
 # misc
 .DS_Store
 *.pem

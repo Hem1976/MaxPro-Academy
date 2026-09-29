@@ -8,9 +8,9 @@ import {
 } from "@/lib/data/queries";
 
 export const metadata: Metadata = {
-  title: "Products",
+  title: "Solutions",
   description:
-    "Browse Maxpro Academy training organized by product — Rockey, RocketSales, RocketVan, RocketBI, and more.",
+    "Browse Maxpro Academy training organized by solution — Rockey, RocketSales, RocketVan, RocketBI, and more.",
 };
 
 export default function ProductsPage() {
@@ -21,11 +21,11 @@ export default function ProductsPage() {
       <FadeIn>
         <header className="max-w-2xl">
           <h1 className="text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
-            Products
+            Solutions
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Training content organized by Maxpro software product. Select a
-            product to see available courses and learning paths.
+            Training content organized by Maxpro software solution. Select a
+            solution to see available courses and learning paths.
           </p>
         </header>
       </FadeIn>

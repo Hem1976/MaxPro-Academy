@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { DataTable } from "@/components/ui/data-table";
 import {
   getAllDemoCertificates,
@@ -15,8 +16,11 @@ export default function AdminCertificatesPage() {
   const certificates = getAllDemoCertificates();
 
   return (
-    <div>
-      <h1 className="mb-6 text-2xl font-semibold text-navy">Certificates</h1>
+    <div className="w-full">
+      <AdminPageHeader
+        title="Certificates"
+        description="Certs earned after learners finish courses."
+      />
 
       <DataTable
         data={certificates}
@@ -57,7 +61,7 @@ export default function AdminCertificatesPage() {
             cell: (row) => (
               <Link
                 href={`/verify/${row.certificate_number}`}
-                className="text-accent hover:underline"
+                className="text-sm font-medium text-accent hover:underline"
                 target="_blank"
               >
                 Link

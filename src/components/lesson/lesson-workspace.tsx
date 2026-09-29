@@ -137,7 +137,7 @@ export function LessonWorkspace({
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-8">
         <div className="min-w-0 flex-[7] space-y-6">
           <header>
-            <h1 className="text-2xl font-semibold tracking-tight text-navy sm:text-3xl">
+            <h1 className="text-2xl font-semibold tracking-tight text-navy dark:text-foreground sm:text-3xl">
               {lesson.title}
             </h1>
             {lesson.description && (
@@ -313,7 +313,7 @@ export function LessonWorkspace({
           </div>
         </div>
 
-        <div className="min-w-0 flex-[3]">
+        <div className="order-first min-w-0 flex-[3] lg:order-none">
           <CourseSidebar
             courseTitle={courseTitle}
             courseSlug={courseSlug}

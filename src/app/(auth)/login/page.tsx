@@ -4,6 +4,9 @@ import { signIn } from "@/actions/auth";
 import { AuthField, AuthForm, AuthLink } from "@/components/auth/auth-form";
 import { getCurrentUser } from "@/lib/auth/get-user";
 import { canAccessAdmin } from "@/lib/auth/roles";
+import { isSupabaseConfigured } from "@/lib/data/demo-store";
+
+const DEMO_LEARNER_PASSWORD = isSupabaseConfigured() ? "demo1234" : "demo";
 
 export const metadata: Metadata = {
   title: "Learner sign in | Maxpro Academy",
@@ -44,7 +47,9 @@ export default async function LoginPage({
           )}
           <div className="rounded-md border border-border bg-surface px-3 py-2 text-left text-xs text-muted-foreground">
             <p className="font-medium text-foreground">Demo learner account</p>
-            <p className="mt-1">amina.saleh@maxproinfotech.com — password demo</p>
+            <p className="mt-1">
+              amina.saleh@maxproinfotech.com — password {DEMO_LEARNER_PASSWORD}
+            </p>
           </div>
         </>
       }

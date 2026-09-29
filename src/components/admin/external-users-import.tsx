@@ -88,12 +88,11 @@ export function ExternalUsersImport() {
             <Users className="mt-0.5 size-5 text-accent" aria-hidden />
             <div>
               <h2 className="text-lg font-semibold text-foreground">
-                Upload external learners
+                Upload CSV
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                Import a CSV with name, email, phone, company, and position.
-                Accounts are created and login credentials are emailed via
-                Postmark.
+                Columns: name, email, phone, company, position. We create
+                accounts and email logins.
               </p>
               <p className="mt-2 text-sm">
                 <a

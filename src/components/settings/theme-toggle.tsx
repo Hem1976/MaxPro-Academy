@@ -30,7 +30,7 @@ export function ThemeToggle() {
       <div>
         <p className="text-sm font-medium text-foreground">Theme</p>
         <p className="text-xs text-muted-foreground">
-          Toggle light or dark mode (saved locally)
+          Light or dark — saved on this device
         </p>
       </div>
       <Button variant="outline" size="sm" onClick={toggle}>

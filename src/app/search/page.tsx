@@ -25,7 +25,7 @@ function resultHref(item: Awaited<ReturnType<typeof searchAcademy>>[number]): st
 }
 
 function resultCategory(item: Awaited<ReturnType<typeof searchAcademy>>[number]): string {
-  if (item.type === "product") return "Product";
+  if (item.type === "product") return "Solution";
   if (item.type === "course") return `Course · ${item.productName ?? "Maxpro"}`;
   return `Lesson · ${item.courseTitle ?? "Course"}`;
 }
@@ -80,9 +80,11 @@ export default function SearchPage() {
   return (
     <Container className="py-10">
       <div className="mx-auto max-w-2xl">
-        <h1 className="text-2xl font-semibold text-navy">Search</h1>
+        <h1 className="text-2xl font-semibold text-navy dark:text-foreground">
+          Search
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Find products, courses, and lessons across Maxpro Academy.
+          Find solutions, courses, and lessons across Maxpro Academy.
         </p>
 
         <div className="relative mt-6">
@@ -93,7 +95,7 @@ export default function SearchPage() {
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search products, courses, and lessons..."
+            placeholder="Search solutions, courses, and lessons..."
             className="pl-9"
             autoFocus
             aria-label="Search academy"
@@ -102,6 +104,10 @@ export default function SearchPage() {
 
         <p className="mt-2 text-xs text-muted-foreground">
           Tip: press{" "}
+          <kbd className="rounded border border-border px-1 py-0.5 font-mono text-[10px]">
+            ⌘K
+          </kbd>{" "}
+          /{" "}
           <kbd className="rounded border border-border px-1 py-0.5 font-mono text-[10px]">
             Ctrl K
           </kbd>{" "}
@@ -127,24 +133,26 @@ export default function SearchPage() {
             </p>
           )}
 
-          <ul className="divide-y divide-border rounded-lg border border-border bg-card">
-            {results.map((result) => (
-              <li key={result.id}>
-                <Link
-                  href={result.href}
-                  className="block px-4 py-4 transition-colors hover:bg-surface"
-                >
-                  <p className="font-medium text-foreground">{result.title}</p>
-                  {result.description && (
-                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                      {result.description}
-                    </p>
-                  )}
-                  <p className="mt-1 text-xs text-accent">{result.category}</p>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {results.length > 0 && (
+            <ul className="divide-y divide-border rounded-lg border border-border bg-card">
+              {results.map((result) => (
+                <li key={result.id}>
+                  <Link
+                    href={result.href}
+                    className="block px-4 py-4 transition-colors hover:bg-surface focus-ring"
+                  >
+                    <p className="font-medium text-foreground">{result.title}</p>
+                    {result.description && (
+                      <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
+                        {result.description}
+                      </p>
+                    )}
+                    <p className="mt-1 text-xs text-accent">{result.category}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </Container>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
+import { AdminButtonLink } from "@/components/admin/admin-button-link";
+import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { DataTable } from "@/components/ui/data-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,21 +17,18 @@ export default function AdminCoursesPage() {
   const courses = getCourses({ publishedOnly: false });
 
   return (
-    <div>
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold text-navy">Courses</h1>
-          <p className="text-sm text-muted-foreground">
-            Build and publish training courses.
-          </p>
-        </div>
+    <div className="w-full">
+      <AdminPageHeader
+        title="Courses"
+        description="Pick a course to edit videos, quiz, and publish."
+      >
         <Link href="/admin/courses/new">
-          <Button>
-            <Plus className="size-4" />
+          <Button size="md">
+            <Plus className="size-4" aria-hidden="true" />
             New course
           </Button>
         </Link>
-      </div>
+      </AdminPageHeader>
 
       <DataTable
         data={courses}
@@ -40,12 +39,7 @@ export default function AdminCoursesPage() {
             key: "title",
             header: "Title",
             cell: (row) => (
-              <Link
-                href={`/admin/courses/${row.id}`}
-                className="font-medium text-accent hover:underline"
-              >
-                {row.title}
-              </Link>
+              <span className="font-medium text-foreground">{row.title}</span>
             ),
           },
           {
@@ -57,7 +51,7 @@ export default function AdminCoursesPage() {
           },
           {
             key: "product",
-            header: "Product",
+            header: "Solution",
             hideOnMobile: true,
             cell: (row) => row.product?.name ?? "—",
           },
@@ -74,6 +68,21 @@ export default function AdminCoursesPage() {
               <Badge variant={row.published ? "success" : "secondary"}>
                 {row.status}
               </Badge>
+            ),
+          },
+          {
+            key: "actions",
+            header: "",
+            className: "w-[1%] whitespace-nowrap text-right",
+            cell: (row) => (
+              <AdminButtonLink
+                href={`/admin/courses/${row.id}`}
+                variant="primary"
+                aria-label={`Edit ${row.title}`}
+              >
+                <Pencil className="size-4" aria-hidden="true" />
+                Edit
+              </AdminButtonLink>
             ),
           },
         ]}

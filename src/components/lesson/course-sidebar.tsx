@@ -51,7 +51,7 @@ function SidebarContent({
   return (
     <div className="flex h-full min-h-0 flex-col">
       <div className="shrink-0 border-b border-border/60 px-4 py-4">
-        <h2 className="text-sm font-semibold leading-snug text-navy">
+        <h2 className="text-sm font-semibold leading-snug text-navy dark:text-foreground">
           {courseTitle}
         </h2>
         <p className="mt-1 text-xs text-muted-foreground">
@@ -110,7 +110,7 @@ function SidebarContent({
                       {lesson.completed ? (
                         <CheckCircle2
                           className="mt-0.5 size-3.5 shrink-0 text-success"
-                          aria-label="Completed"
+                          aria-hidden="true"
                         />
                       ) : lesson.current ? (
                         <PlayCircle
@@ -156,7 +156,7 @@ function SidebarContent({
                 {quiz.completed ? (
                   <CheckCircle2
                     className="mt-0.5 size-3.5 shrink-0 text-success"
-                    aria-label="Completed"
+                    aria-hidden="true"
                   />
                 ) : (
                   <HelpCircle
@@ -204,7 +204,7 @@ export function CourseSidebar({
 
       <aside
         className={cn(
-          "hidden shrink-0 lg:sticky lg:top-24 lg:flex lg:h-[calc(100vh-7rem)] lg:max-h-[calc(100vh-7rem)] lg:w-full lg:flex-col lg:self-start lg:overflow-hidden lg:rounded-lg lg:border lg:border-border/60 lg:bg-surface/30",
+          "hidden shrink-0 lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-6rem)] lg:max-h-[calc(100vh-6rem)] lg:w-full lg:flex-col lg:self-start lg:overflow-hidden lg:rounded-lg lg:border lg:border-border/60 lg:bg-surface/30",
           className,
         )}
         aria-label="Course navigation"

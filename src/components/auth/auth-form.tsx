@@ -1,5 +1,6 @@
 "use client";
 
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { useActionState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -35,14 +36,23 @@ export function AuthForm({
 }: AuthFormProps) {
   const [state, formAction, pending] = useActionState(
     async (_prev: AuthFormState, formData: FormData) => {
-      const result = await action(formData);
-      if (!result.success) {
-        return { error: result.error };
+      try {
+        const result = await action(formData);
+        if (!result.success) {
+          return { error: result.error };
+        }
+        if ("message" in (result.data as object)) {
+          return { message: (result.data as { message: string }).message };
+        }
+        return {};
+      } catch (error) {
+        if (isRedirectError(error)) {
+          throw error;
+        }
+        const message =
+          error instanceof Error ? error.message : "Something went wrong";
+        return { error: message };
       }
-      if ("message" in (result.data as object)) {
-        return { message: (result.data as { message: string }).message };
-      }
-      return {};
     },
     {} as AuthFormState,
   );

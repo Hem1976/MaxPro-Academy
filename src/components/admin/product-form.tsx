@@ -31,12 +31,12 @@ export function ProductForm({ product }: ProductFormProps) {
         return;
       }
 
-      window.location.href = `/admin/products/${result.data.id}`;
+      window.location.href = `/admin/solutions/${result.data.id}`;
     });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl space-y-5">
+    <form onSubmit={handleSubmit} className="w-full space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="name">Name</Label>
@@ -111,7 +111,7 @@ export function ProductForm({ product }: ProductFormProps) {
       {error && <p className="text-sm text-destructive">{error}</p>}
 
       <Button type="submit" disabled={isPending}>
-        {isPending ? "Saving..." : product ? "Update product" : "Create product"}
+        {isPending ? "Saving..." : product ? "Update solution" : "Create solution"}
       </Button>
     </form>
   );

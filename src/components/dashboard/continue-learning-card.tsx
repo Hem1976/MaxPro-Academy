@@ -34,7 +34,7 @@ export function ContinueLearningCard({
 
   return (
     <article className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-      <div className="grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+      <div className="grid items-start lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
         <Link
           href={href}
           className="group relative block min-h-[220px] overflow-hidden bg-navy focus-ring"
@@ -71,17 +71,19 @@ export function ContinueLearningCard({
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
               Up next
             </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {courseTitle}
-              <span className="mx-1.5 text-border-strong">·</span>
-              {moduleTitle}
+            <p className="mt-2 flex flex-col gap-0.5 text-sm text-muted-foreground sm:flex-row sm:items-center">
+              <span className="truncate">{courseTitle}</span>
+              <span className="hidden text-border-strong sm:inline" aria-hidden="true">
+                ·
+              </span>
+              <span className="truncate">{moduleTitle}</span>
             </p>
-            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-navy dark:text-foreground">
+            <h2 className="mt-1 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
               {title}
             </h2>
           </div>
 
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex items-center gap-3">
               <ProgressRing
                 value={progressPercent}
@@ -103,8 +105,8 @@ export function ContinueLearningCard({
               </div>
             </div>
 
-            <Link href={href} className="shrink-0">
-              <Button size="lg">
+            <Link href={href} className="w-full sm:w-auto sm:shrink-0">
+              <Button size="lg" className="w-full sm:w-auto">
                 {isQuiz ? (
                   <HelpCircle className="size-4" aria-hidden="true" />
                 ) : (

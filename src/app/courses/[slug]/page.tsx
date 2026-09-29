@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Award, CheckCircle2, Clock } from "lucide-react";
 import { CourseThumbnail } from "@/components/brand/course-thumbnail";
+import { AppShell } from "@/components/layout/app-shell";
+import { MarketingShell } from "@/components/layout/marketing-shell";
 import { Container } from "@/components/ui/container";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +13,7 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { ModuleAccordion } from "@/components/course/module-accordion";
 import { FadeIn } from "@/components/marketing/fade-in";
 import { getCurrentUser } from "@/lib/auth/get-user";
+import { canAccessAdmin } from "@/lib/auth/roles";
 import {
   getCourseProgress,
   getCourseQuizWithQuestions,
@@ -151,7 +154,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
   const courseQuiz = getCourseQuizWithQuestions(course.id);
   const quizPassed = user ? hasPassedCourseQuiz(user.id, course.id) : false;
 
-  return (
+  const page = (
     <Container className="py-8 lg:py-12">
       <Breadcrumb
         items={[
@@ -197,7 +200,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   </Badge>
                 )}
               </div>
-              <h1 className="mt-3 text-3xl font-semibold tracking-tight text-navy sm:text-4xl">
+              <h1 className="mt-3 text-3xl font-semibold tracking-tight text-navy dark:text-foreground sm:text-4xl">
                 {course.title}
               </h1>
               {course.short_description && (
@@ -216,7 +219,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
           {course.learning_outcomes && course.learning_outcomes.length > 0 && (
             <section className="mt-10">
               <FadeIn>
-                <h2 className="text-xl font-semibold tracking-tight text-navy">
+                <h2 className="text-xl font-semibold tracking-tight text-navy dark:text-foreground">
                   What you&apos;ll learn
                 </h2>
                 <ul className="mt-4 space-y-2.5">
@@ -236,7 +239,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
           <section className="mt-10">
             <FadeIn>
-              <h2 className="text-xl font-semibold tracking-tight text-navy">
+              <h2 className="text-xl font-semibold tracking-tight text-navy dark:text-foreground">
                 Course content
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
@@ -285,7 +288,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
           </section>
         </div>
 
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+        <aside className="lg:sticky lg:top-20 lg:self-start">
           <FadeIn>
             <div className="rounded-lg border border-border bg-surface p-5">
               <dl className="space-y-3 text-sm">
@@ -365,4 +368,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
       </div>
     </Container>
   );
+
+  if (user && !canAccessAdmin(user.profile.role)) {
+    return <AppShell>{page}</AppShell>;
+  }
+
+  return <MarketingShell>{page}</MarketingShell>;
 }

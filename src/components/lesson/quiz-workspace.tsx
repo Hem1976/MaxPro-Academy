@@ -90,7 +90,7 @@ export function QuizWorkspace({
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
               Course quiz
             </p>
-            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-navy sm:text-3xl">
+            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-navy dark:text-foreground sm:text-3xl">
               {quiz.title}
             </h1>
             <p className="mt-2 text-muted-foreground">
@@ -149,7 +149,7 @@ export function QuizWorkspace({
           </nav>
         </div>
 
-        <div className="min-w-0 flex-[3]">
+        <div className="order-first min-w-0 flex-[3] lg:order-none">
           <CourseSidebar
             courseTitle={courseTitle}
             courseSlug={courseSlug}

@@ -1,15 +1,5 @@
-import type { Metadata } from "next";
-import { ProductForm } from "@/components/admin/product-form";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "New Product | Admin",
-};
-
-export default function NewProductPage() {
-  return (
-    <div>
-      <h1 className="mb-6 text-2xl font-semibold text-navy">New product</h1>
-      <ProductForm />
-    </div>
-  );
+export default function AdminProductsNewRedirectPage() {
+  redirect("/admin/solutions/new");
 }

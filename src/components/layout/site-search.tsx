@@ -48,7 +48,7 @@ export function SiteSearch({ open, onClose }: SiteSearchProps) {
           description: item.description ?? undefined,
           category:
             item.type === "product"
-              ? "Product"
+              ? "Solution"
               : item.type === "course"
                 ? `Course · ${item.productName ?? "Maxpro"}`
                 : `Lesson · ${item.courseTitle ?? "Course"}`,
@@ -81,7 +81,7 @@ export function SiteSearch({ open, onClose }: SiteSearchProps) {
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search products, courses, and lessons..."
+            placeholder="Search solutions, courses, and lessons..."
             className="pl-9"
             autoFocus
             aria-label="Search academy"

@@ -32,7 +32,7 @@ export async function generateMetadata({
   const product = getProductBySlug(slug);
 
   if (!product) {
-    return { title: "Product not found" };
+    return { title: "Solution not found" };
   }
 
   return {
@@ -66,7 +66,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     <Container className="py-12 lg:py-16">
       <Breadcrumb
         items={[
-          { label: "Products", href: "/products" },
+          { label: "Solutions", href: "/products" },
           { label: product.name },
         ]}
         className="mb-8"

@@ -18,7 +18,9 @@ export default async function ProfilePage() {
     <AppShell>
       <Container className="py-10">
         <div className="mb-8">
-          <h1 className="text-2xl font-semibold text-navy">Profile</h1>
+          <h1 className="text-2xl font-semibold text-navy dark:text-foreground">
+            Profile
+          </h1>
           <p className="mt-2 text-muted-foreground">
             Manage your account details and learning preferences.
           </p>

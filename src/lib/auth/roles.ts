@@ -24,6 +24,21 @@ export function canAccessAdmin(role: UserRole | null | undefined): boolean {
   return role != null && ADMIN_ACCESS_ROLES.includes(role);
 }
 
+export function staffRoleLabel(role: UserRole | null | undefined): string {
+  switch (role) {
+    case "super_admin":
+      return "Super admin";
+    case "content_admin":
+      return "Content admin";
+    case "trainer":
+      return "Trainer";
+    case "customer":
+      return "Learner";
+    default:
+      return "Unknown";
+  }
+}
+
 export function getRoleFromProfile(
   profile: Pick<Profile, "role"> | null | undefined,
 ): UserRole | null {

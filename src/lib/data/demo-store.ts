@@ -1178,7 +1178,7 @@ const mutableAnnouncements: Announcement[] = [
     id: "announcement-welcome",
     title: "Welcome to Maxpro Academy",
     content:
-      "Welcome to Maxpro Academy. Browse products and courses to begin structured product training.",
+      "Welcome to Maxpro Academy. Browse solutions and courses to begin structured training.",
     type: "info",
     published: true,
     created_at: TIMESTAMP,

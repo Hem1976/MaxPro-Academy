@@ -173,10 +173,10 @@ export function AiCourseBuilder({ products }: AiCourseBuilderProps) {
           <div>
             <h2 className="flex items-center gap-2 text-base font-semibold text-foreground">
               <Sparkles className="size-4 text-accent" aria-hidden="true" />
-              Local AI status
+              AI connection
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Uses Ollama at <span className="font-mono text-xs">{baseUrl}</span>
+              Ollama at <span className="font-mono text-xs">{baseUrl}</span>
             </p>
           </div>
           <Button variant="outline" size="sm" onClick={refreshStatus} disabled={pending}>
@@ -188,16 +188,16 @@ export function AiCourseBuilder({ products }: AiCourseBuilderProps) {
           {aiAvailable === null ? (
             <>
               <Loader2 className="mt-0.5 size-4 animate-spin text-muted-foreground" />
-              <p>Checking local AI…</p>
+              <p>Checking AI…</p>
             </>
           ) : aiAvailable ? (
             <>
               <CheckCircle2 className="mt-0.5 size-4 text-success" />
               <div>
-                <p className="font-medium text-foreground">Ollama connected</p>
+                <p className="font-medium text-foreground">Connected</p>
                 <p className="text-muted-foreground">
-                  {models.length} model{models.length === 1 ? "" : "s"} available
-                  {models[0] ? ` (default: ${models[0]})` : ""}
+                  {models.length} model{models.length === 1 ? "" : "s"}
+                  {models[0] ? ` · using ${models[0]}` : ""}
                 </p>
               </div>
             </>
@@ -206,10 +206,10 @@ export function AiCourseBuilder({ products }: AiCourseBuilderProps) {
               <AlertCircle className="mt-0.5 size-4 text-warning" />
               <div>
                 <p className="font-medium text-foreground">
-                  Ollama not available — template fallback is ready
+                  AI off — sample template will be used
                 </p>
                 <p className="text-muted-foreground">
-                  {aiError ?? "Start Ollama, then run `ollama pull llama3.2`."}
+                  {aiError ?? "Start Ollama, then: ollama pull llama3.2"}
                 </p>
               </div>
             </>
@@ -218,50 +218,49 @@ export function AiCourseBuilder({ products }: AiCourseBuilderProps) {
       </section>
 
       <section className="rounded-lg border border-border bg-card p-5">
-        <h2 className="text-base font-semibold text-foreground">1. Brief</h2>
+        <h2 className="text-base font-semibold text-foreground">1. What to build</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Describe the course you want. AI drafts the title, modules, lessons,
-          walkthroughs, and final quiz.
+          Tell us the topic. AI writes the outline, lessons, and quiz.
         </p>
 
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           <label className="block text-sm sm:col-span-2">
             <span className="mb-1.5 block font-medium text-foreground">
-              Course title (any name)
+              Course title
             </span>
             <input
               className="w-full rounded-md border border-border bg-background px-3 py-2"
               value={courseTitle}
               onChange={(event) => setCourseTitle(event.target.value)}
-              placeholder="e.g. Sales Fundamentals, Gatekeeper Skills, Cold Calling Basics"
+              placeholder="e.g. Sales basics"
             />
             <span className="mt-1 block text-xs text-muted-foreground">
-              Free text — does not need to match a product name.
+              Any name you like.
             </span>
           </label>
 
           <label className="block text-sm sm:col-span-2">
             <span className="mb-1.5 block font-medium text-foreground">
-              Topic / brief
+              Topic
             </span>
             <textarea
               className="min-h-24 w-full rounded-md border border-border bg-background px-3 py-2"
               value={topic}
               onChange={(event) => setTopic(event.target.value)}
-              placeholder="e.g. Sales process, buyer journey, handling objections"
+              placeholder="What should learners learn?"
             />
           </label>
 
           <label className="block text-sm sm:col-span-2">
             <span className="mb-1.5 block font-medium text-foreground">
-              Link to product (optional)
+              Solution (optional)
             </span>
             <select
               className="w-full rounded-md border border-border bg-background px-3 py-2"
               value={productId}
               onChange={(event) => setProductId(event.target.value)}
             >
-              <option value="">General training (no product)</option>
+              <option value="">None</option>
               {products
                 .filter((product) => product.slug !== "general-training")
                 .map((product) => (
@@ -293,8 +292,7 @@ export function AiCourseBuilder({ products }: AiCourseBuilderProps) {
               placeholder="https://youtu.be/..."
             />
             <span className="mt-1 block text-xs text-muted-foreground">
-              Paste a playlist or single video URL. Each playlist video becomes
-              its own lesson with the video embedded.
+              Playlist or single video — each becomes a lesson.
             </span>
           </label>
 
@@ -344,7 +342,7 @@ export function AiCourseBuilder({ products }: AiCourseBuilderProps) {
 
           <label className="block text-sm">
             <span className="mb-1.5 block font-medium text-foreground">
-              Local model
+              AI model
             </span>
             {models.length > 0 ? (
               <select
@@ -376,7 +374,7 @@ export function AiCourseBuilder({ products }: AiCourseBuilderProps) {
               checked={forceFallback}
               onChange={(event) => setForceFallback(event.target.checked)}
             />
-            Force template fallback (skip Ollama)
+            Use template only (skip AI)
           </label>
           <label className="flex items-center gap-2">
             <input
@@ -384,7 +382,7 @@ export function AiCourseBuilder({ products }: AiCourseBuilderProps) {
               checked={publishNow}
               onChange={(event) => setPublishNow(event.target.checked)}
             />
-            Publish immediately when saving
+            Publish when saving
           </label>
         </div>
 
@@ -399,12 +397,12 @@ export function AiCourseBuilder({ products }: AiCourseBuilderProps) {
           </Button>
           {!canGenerate && (
             <p className="text-sm text-muted-foreground">
-              Enter a topic (2+ characters) to enable generate.
+              Add a topic (2+ letters) to continue.
             </p>
           )}
           {pending && (
             <p className="text-sm text-muted-foreground">
-              Generating… large courses can take 1–3 minutes with local models.
+              This may take a few minutes.
             </p>
           )}
         </div>
@@ -426,7 +424,7 @@ export function AiCourseBuilder({ products }: AiCourseBuilderProps) {
         <div className="rounded-md border border-success/30 bg-success/10 px-4 py-3 text-sm text-success">
           Course saved.{" "}
           <Link href={successHref} className="font-medium underline">
-            Open in CMS
+            Open course
           </Link>
         </div>
       )}
@@ -436,7 +434,7 @@ export function AiCourseBuilder({ products }: AiCourseBuilderProps) {
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-base font-semibold text-foreground">
-                2. Review draft
+                2. Check draft
               </h2>
               <p className="text-sm text-muted-foreground">
                 Provider: {provider} · Model: {usedModel} · {draft.modules.length}{" "}
@@ -455,7 +453,7 @@ export function AiCourseBuilder({ products }: AiCourseBuilderProps) {
               {pending ? (
                 <Loader2 className="size-4 animate-spin" aria-hidden="true" />
               ) : null}
-              Save course to Academy
+              Save course
             </Button>
           </div>
 

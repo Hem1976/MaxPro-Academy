@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { ExternalUsersImport } from "@/components/admin/external-users-import";
 
 export const metadata: Metadata = {
@@ -7,14 +8,11 @@ export const metadata: Metadata = {
 
 export default function AdminExternalUsersPage() {
   return (
-    <div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-navy">External learners</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Bulk-invite external training participants. Upload a CSV and Maxpro
-          Academy will create learner accounts and email temporary passwords.
-        </p>
-      </div>
+    <div className="w-full">
+      <AdminPageHeader
+        title="Import users"
+        description="Upload a CSV to create accounts and email logins."
+      />
 
       <ExternalUsersImport />
     </div>

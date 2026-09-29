@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AiCourseBuilder } from "@/components/admin/ai-course-builder";
+import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { getProducts } from "@/lib/data/demo-store";
 
 export const metadata: Metadata = {
@@ -14,15 +15,11 @@ export default function AiCourseBuilderPage() {
   );
 
   return (
-    <div>
-      <header className="mb-6">
-        <h1 className="text-2xl font-semibold text-navy">AI Course Builder</h1>
-        <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-          Generate a full course draft with local AI (Ollama / llama and other
-          models): course name, modules, written walkthrough lessons, and a
-          final knowledge check. Review before saving into the Academy CMS.
-        </p>
-      </header>
+    <div className="w-full">
+      <AdminPageHeader
+        title="AI Course Builder"
+        description="Describe a course. AI drafts modules, lessons, and a quiz. Review, then save."
+      />
 
       <AiCourseBuilder products={products} />
     </div>

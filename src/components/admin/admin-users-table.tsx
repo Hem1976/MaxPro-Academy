@@ -25,7 +25,7 @@ export function AdminUsersTable({ users }: AdminUsersTableProps) {
         <Input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search by name or email..."
+          placeholder="Search name or email…"
           aria-label="Search users"
         />
       </div>

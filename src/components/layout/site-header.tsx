@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Shield } from "lucide-react";
+import { Menu, Search, Shield } from "lucide-react";
 import { signOut } from "@/actions/auth";
 import { Logo } from "@/components/brand/logo";
 import { Avatar } from "@/components/ui/avatar";
@@ -15,12 +15,12 @@ import { SearchTrigger, SiteSearch } from "@/components/layout/site-search";
 import { canAccessAdmin } from "@/lib/auth/roles";
 import { cn } from "@/lib/utils";
 import type { Profile } from "@/types/database";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 const AUTH_NAV_LINKS = [
   { href: "/dashboard", label: "Home" },
   { href: "/dashboard#my-courses", label: "My Learning" },
-  { href: "/products", label: "Products" },
+  { href: "/products", label: "Solutions" },
   { href: "/courses", label: "Courses" },
 ];
 
@@ -31,7 +31,15 @@ interface SiteHeaderProps {
 export function SiteHeader({ user = null }: SiteHeaderProps) {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [locationHash, setLocationHash] = useState("");
   const { open: searchOpen, setOpen: setSearchOpen } = useSearchDialog();
+
+  useEffect(() => {
+    const syncHash = () => setLocationHash(window.location.hash);
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    return () => window.removeEventListener("hashchange", syncHash);
+  }, [pathname]);
   const [isSigningOut, startSignOut] = useTransition();
   const showAdmin = user ? canAccessAdmin(user.role) : false;
   const displayName =
@@ -45,11 +53,13 @@ export function SiteHeader({ user = null }: SiteHeaderProps) {
   };
 
   const isNavActive = (href: string) => {
-    if (href.includes("#")) {
-      return false;
+    if (href === "/dashboard#my-courses") {
+      return (
+        pathname === "/dashboard" && locationHash === "#my-courses"
+      );
     }
     if (href === "/dashboard") {
-      return pathname === "/dashboard";
+      return pathname === "/dashboard" && locationHash !== "#my-courses";
     }
     return pathname === href || pathname.startsWith(`${href}/`);
   };
@@ -210,6 +220,17 @@ export function SiteHeader({ user = null }: SiteHeaderProps) {
                   {link.label}
                 </Link>
               ))}
+              <button
+                type="button"
+                onClick={() => {
+                  setDrawerOpen(false);
+                  setSearchOpen(true);
+                }}
+                className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-surface"
+              >
+                <Search className="size-4" aria-hidden="true" />
+                Search
+              </button>
             </>
           ) : user && showAdmin ? (
             <Link

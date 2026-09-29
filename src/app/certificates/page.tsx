@@ -23,7 +23,9 @@ export default async function CertificatesPage() {
     <AppShell>
       <Container className="py-10">
         <div className="mb-8">
-          <h1 className="text-2xl font-semibold text-navy">My certificates</h1>
+          <h1 className="text-2xl font-semibold text-navy dark:text-foreground">
+            My certificates
+          </h1>
           <p className="mt-2 text-muted-foreground">
             View and download certificates you have earned.
           </p>
@@ -49,7 +51,7 @@ export default async function CertificatesPage() {
               <li key={cert.id}>
                 <Link
                   href={`/certificates/${cert.id}`}
-                  className="block rounded-lg border border-border bg-card p-6 transition-colors hover:border-border-strong hover:bg-surface"
+                  className="block rounded-lg border border-border bg-card p-6 transition-colors hover:border-border-strong hover:bg-surface focus-ring"
                 >
                   <div className="flex items-start gap-4">
                     <div className="flex size-12 items-center justify-center rounded-md bg-navy text-navy-foreground">

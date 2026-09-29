@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { DataTable } from "@/components/ui/data-table";
 import { Badge } from "@/components/ui/badge";
 import { getContentHealthIssues } from "@/lib/data/demo-store";
@@ -19,16 +20,16 @@ export default function AdminContentHealthPage() {
   const issues = getContentHealthIssues();
 
   return (
-    <div>
-      <h1 className="mb-2 text-2xl font-semibold text-navy">Content health</h1>
-      <p className="mb-6 text-sm text-muted-foreground">
-        Lessons without videos, courses without thumbnails, and other gaps.
-      </p>
+    <div className="w-full">
+      <AdminPageHeader
+        title="Fix content"
+        description="Missing videos, images, or drafts that need work."
+      />
 
       <DataTable
         data={issues}
         keyExtractor={(row) => `${row.type}-${row.entityId}`}
-        emptyMessage="No content issues detected."
+        emptyMessage="Nothing to fix."
         columns={[
           {
             key: "type",
@@ -43,7 +44,10 @@ export default function AdminContentHealthPage() {
             key: "title",
             header: "Item",
             cell: (row) => (
-              <Link href={row.href} className="font-medium text-accent hover:underline">
+              <Link
+                href={row.href}
+                className="font-medium text-accent hover:underline"
+              >
                 {row.title}
               </Link>
             ),

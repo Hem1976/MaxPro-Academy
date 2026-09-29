@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Award, BookOpen, CheckCircle2, ClipboardList } from "lucide-react";
+import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { LearnerStatusBadge } from "@/components/admin/learner-analytics-table";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { ProgressBar } from "@/components/ui/progress-bar";
@@ -46,7 +47,7 @@ export default async function AdminLearnerPage({ params }: AdminLearnerPageProps
   }
 
   return (
-    <div>
+    <div className="w-full">
       <Breadcrumb
         items={[
           { label: "Dashboard", href: "/admin/dashboard" },
@@ -56,14 +57,16 @@ export default async function AdminLearnerPage({ params }: AdminLearnerPageProps
         className="mb-6"
       />
 
-      <div className="mb-8">
-        <h1 className="text-2xl font-semibold text-navy">{learner.fullName}</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {learner.email}
-          {learner.jobTitle ? ` · ${learner.jobTitle}` : ""}
-          {learner.company ? ` · ${learner.company}` : ""}
-        </p>
-      </div>
+      <AdminPageHeader
+        title={learner.fullName}
+        description={
+          <>
+            {learner.email}
+            {learner.jobTitle ? ` · ${learner.jobTitle}` : ""}
+            {learner.company ? ` · ${learner.company}` : ""}
+          </>
+        }
+      />
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard

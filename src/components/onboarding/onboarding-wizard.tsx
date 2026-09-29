@@ -100,7 +100,7 @@ export function OnboardingWizard({
 
   const steps = [
     "Welcome",
-    "Products",
+    "Solutions",
     "Role",
     "Recommendations",
   ];
@@ -178,7 +178,7 @@ export function OnboardingWizard({
       {step === 1 && (
         <div className="space-y-4">
           <p className="text-muted-foreground">
-            Which Maxpro products are you learning? Select all that apply.
+            Which Maxpro solutions are you learning? Select all that apply.
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
             {products.map((product) => {

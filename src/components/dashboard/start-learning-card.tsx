@@ -24,7 +24,7 @@ export function StartLearningCard({ courses }: StartLearningCardProps) {
       </div>
 
       {courses.length > 0 ? (
-        <div className="grid gap-3 p-4 sm:grid-cols-3 sm:p-6">
+        <div className="grid grid-cols-1 gap-3 p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-3">
           {courses.map((course) => {
             const product = course.product;
 

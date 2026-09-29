@@ -22,19 +22,20 @@ import { cn } from "@/lib/utils";
 
 const NAV_GROUPS = [
   {
-    label: "Overview",
+    label: "Home",
     items: [
       { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+      { href: "/admin/analytics", label: "Stats", icon: BarChart3 },
     ],
   },
   {
-    label: "Content",
+    label: "Build",
     items: [
-      { href: "/admin/products", label: "Products", icon: Package },
+      { href: "/admin/solutions", label: "Solutions", icon: Package },
       { href: "/admin/courses", label: "Courses", icon: BookOpen },
       {
         href: "/admin/ai-course-builder",
-        label: "AI Course Builder",
+        label: "AI builder",
         icon: Sparkles,
       },
       { href: "/admin/lessons", label: "Lessons", icon: FileText },
@@ -47,30 +48,19 @@ const NAV_GROUPS = [
       { href: "/admin/users", label: "Users", icon: Users },
       {
         href: "/admin/external-users",
-        label: "External learners",
+        label: "Import users",
         icon: UserPlus,
       },
-    ],
-  },
-  {
-    label: "Credentials",
-    items: [
       { href: "/admin/certificates", label: "Certificates", icon: Award },
     ],
   },
   {
-    label: "Insights",
-    items: [
-      { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
-    ],
-  },
-  {
-    label: "System",
+    label: "More",
     items: [
       { href: "/admin/announcements", label: "Announcements", icon: Megaphone },
       {
         href: "/admin/content-health",
-        label: "Content Health",
+        label: "Fix content",
         icon: HeartPulse,
       },
       { href: "/admin/settings", label: "Settings", icon: Settings },
@@ -85,9 +75,7 @@ export function AdminNav() {
     <nav className="space-y-6" aria-label="Admin navigation">
       <div className="flex items-center gap-2 px-3">
         <Shield className="size-4 text-accent" aria-hidden="true" />
-        <span className="text-sm font-semibold text-foreground">
-          Academy CMS
-        </span>
+        <span className="text-sm font-semibold text-foreground">Menu</span>
       </div>
 
       {NAV_GROUPS.map((group) => (
@@ -106,7 +94,7 @@ export function AdminNav() {
                   <Link
                     href={item.href}
                     className={cn(
-                      "flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                      "flex min-h-10 items-center gap-2 rounded-md px-3 text-sm font-medium transition-colors",
                       active
                         ? "bg-accent-muted text-accent"
                         : "text-muted-foreground hover:bg-surface hover:text-foreground",
@@ -124,7 +112,7 @@ export function AdminNav() {
 
       <div className="border-t border-border pt-4">
         <p className="px-3 text-xs text-muted-foreground">
-          Signed in as staff. Learner accounts use a separate sign-in.
+          Staff only. Learners sign in elsewhere.
         </p>
       </div>
     </nav>

@@ -29,16 +29,16 @@ export default async function AdminLoginPage({
   const adminEmail = getDemoAdminEmail();
 
   return (
-    <AuthShell eyebrow="Staff console">
+    <AuthShell eyebrow="Staff">
       <AuthForm
         title="Admin sign in"
-        description="This portal is for academy staff. Learners should use the learner sign-in."
-        submitLabel="Sign in to admin"
+        description="For staff only. Learners use the main sign-in."
+        submitLabel="Sign in"
         action={signInAdmin}
         next={typeof next === "string" ? next : undefined}
         hint={
           <div className="rounded-md border border-border bg-surface px-3 py-2 text-left text-xs text-muted-foreground">
-            <p className="font-medium text-foreground">Demo staff account</p>
+            <p className="font-medium text-foreground">Demo login</p>
             <p className="mt-1">
               {adminEmail} — any password
             </p>
@@ -46,8 +46,8 @@ export default async function AdminLoginPage({
         }
         footer={
           <p>
-            Are you a learner?{" "}
-            <AuthLink href="/login">Go to learner sign-in</AuthLink>
+            Learner?{" "}
+            <AuthLink href="/login">Sign in here</AuthLink>
           </p>
         }
       >

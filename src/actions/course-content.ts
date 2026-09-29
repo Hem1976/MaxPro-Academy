@@ -24,6 +24,7 @@ import {
   parseQuestionnaireJson,
   type QuestionnaireUpload,
 } from "@/lib/validations/questionnaire";
+import { transcribeUploadedVideoUrl } from "@/lib/ai/transcribe-for-lesson";
 import { slugify } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
 import type { Lesson, Module, Quiz } from "@/types/database";
@@ -145,6 +146,8 @@ export async function createVideoLessons(
       1 +
       createdLessons.filter((lesson) => lesson.module_id === moduleId).length;
 
+    const transcript = await transcribeUploadedVideoUrl(item.videoUrl);
+
     const lesson: Lesson = {
       id: generateId(),
       module_id: moduleId,
@@ -157,7 +160,7 @@ export async function createVideoLessons(
       video_url: item.videoUrl,
       duration_seconds: item.durationSeconds ?? 600,
       thumbnail_url: null,
-      transcript: null,
+      transcript,
       written_content: null,
       captions_url: null,
       processing_status: "ready",
